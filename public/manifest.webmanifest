@@ -1,0 +1,16 @@
+{
+  "name": "SalvaTudo",
+  "short_name": "SalvaTudo",
+  "description": "Baixe vídeos, músicas e fotos na qualidade original, já organizados em pastas.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0d0e12",
+  "theme_color": "#6246ea",
+  "icons": [
+    { "src": "/icones/salvatudo.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/icones/salvatudo-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icones/salvatudo-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

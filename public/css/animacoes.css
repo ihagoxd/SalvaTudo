@@ -1,0 +1,116 @@
+/* ============================================================
+   Animações (o movimento do app). Quem pede menos movimento no
+   Windows recebe tudo parado (ver o fim do arquivo).
+   ============================================================ */
+
+/* fundo vivo atrás do campo do link */
+.heroi { position: relative; isolation: isolate; }
+.heroi::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  left: 50%; top: -30px; width: min(980px, 110%); height: 300px; transform: translateX(-50%);
+  background:
+    radial-gradient(38% 55% at 32% 45%, color-mix(in srgb, var(--marca) 22%, transparent), transparent 70%),
+    radial-gradient(32% 50% at 68% 35%, color-mix(in srgb, var(--marca-2) 20%, transparent), transparent 70%),
+    radial-gradient(28% 45% at 52% 80%, color-mix(in srgb, #17a9d6 12%, transparent), transparent 70%);
+  filter: blur(26px);
+  animation: flutuar 16s ease-in-out infinite alternate;
+}
+.heroi.compacto::before { opacity: 0.55; height: 160px; }
+@keyframes flutuar {
+  0% { transform: translateX(-50%) translate(0, 0) scale(1); }
+  50% { transform: translateX(-50%) translate(3%, 6%) scale(1.06); }
+  100% { transform: translateX(-52%) translate(-2%, 2%) scale(0.97); }
+}
+.heroi h1 { background-size: 200% auto; animation: subir 500ms cubic-bezier(0.2, 0.7, 0.2, 1) both, reluzir 9s ease-in-out infinite; }
+@keyframes reluzir { 50% { background-position: 100% 50%; } }
+.heroi-sub { animation: subir 500ms 60ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.campo-link { animation: subir 500ms 120ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.site-chip { animation: subir 420ms cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(180ms + var(--i, 0) * 35ms); }
+.sites-rotulo { animation: aparecer 400ms 180ms both; }
+
+/* botão "Buscar" enquanto lê o link */
+.btn-buscar .anel.p { border-color: rgba(255, 255, 255, 0.35); border-top-color: #fff; }
+
+/* qualidades e escolhas entrando em sequência */
+.qualidade { animation: subir 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 30ms); }
+.qualidade.ativo { animation: subir 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both, escolhido 360ms cubic-bezier(0.3, 0.8, 0.3, 1.4); }
+@keyframes escolhido { 40% { transform: scale(1.05); } }
+.escolha.ativo .radio::after { animation: surgir 260ms cubic-bezier(0.3, 0.8, 0.3, 1.5); }
+
+/* botão Baixar: seta que pula no hover, brilho passando e "Adicionado!" */
+.btn-baixar { position: relative; overflow: hidden; transition: transform 160ms ease, box-shadow 200ms ease, background 300ms ease; }
+.btn-baixar:not(:disabled):hover { transform: translateY(-2px); box-shadow: 0 14px 30px -12px color-mix(in srgb, var(--marca) 80%, transparent); }
+.btn-baixar:not(:disabled):hover .icone-baixar { animation: pular 700ms ease-in-out infinite; }
+@keyframes pular { 0%, 100% { transform: translateY(0); } 45% { transform: translateY(3px); } 70% { transform: translateY(-1px); } }
+.btn-baixar::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-18deg);
+  animation: varrer 3.6s ease-in-out infinite 1.2s;
+}
+@keyframes varrer { 0% { left: -60%; } 30%, 100% { left: 130%; } }
+.btn-baixar.feito, .btn-baixar.feito:disabled { opacity: 1; background: linear-gradient(135deg, #16a34a, #22c55e); animation: festejar 480ms cubic-bezier(0.3, 0.8, 0.3, 1.4); }
+.btn-baixar.feito::after { display: none; }
+.feito-conteudo { display: inline-flex; align-items: center; gap: 8px; animation: surgir 360ms cubic-bezier(0.3, 0.8, 0.3, 1.5) both; }
+@keyframes festejar { 0% { transform: scale(1); } 35% { transform: scale(1.04); } 100% { transform: scale(1); } }
+
+/* a capa voando até a lista */
+.capa-midia.voando { box-shadow: 0 22px 50px -10px rgba(0, 0, 0, 0.45); }
+
+/* confete */
+.camada-confete { position: fixed; inset: 0; pointer-events: none; z-index: 990; overflow: hidden; }
+.camada-confete i { position: absolute; display: block; will-change: transform, opacity; }
+
+/* fila: véu sobre a capa com o anel de progresso */
+.capa-veu {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(8, 8, 14, 0.52);
+  animation: aparecer 200ms ease;
+}
+.anel-progresso { position: relative; width: 46px; height: 46px; display: grid; place-items: center; }
+.anel-progresso svg { position: absolute; inset: 0; transform: rotate(-90deg); }
+.anel-progresso circle { fill: none; stroke-width: 4; }
+.anel-fundo { stroke: rgba(255, 255, 255, 0.22); }
+.anel-valor { stroke: #fff; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5)); }
+.anel-progresso span { position: relative; display: inline-flex; align-items: baseline; color: #fff; font-size: 12px; font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.anel-progresso span small { font-size: 8.5px; font-weight: 700; opacity: 0.85; }
+.anel-progresso.girando svg { animation: girarAnel 1s linear infinite; }
+@keyframes girarAnel { from { transform: rotate(-90deg); } to { transform: rotate(270deg); } }
+.anel-progresso.pausado .anel-valor { stroke: rgba(255, 255, 255, 0.55); filter: none; }
+.na-fila { display: flex; gap: 4px; }
+.na-fila i { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulsarPonto 1.2s ease-in-out infinite; }
+.na-fila i:nth-child(2) { animation-delay: 0.15s; }
+.na-fila i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes pulsarPonto { 0%, 100% { opacity: 0.25; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.1); } }
+
+/* pronto: selo verde que salta e brilho no cartão */
+.capa-ok {
+  position: absolute; right: 6px; top: 6px;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #22c55e; color: #fff;
+  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.5);
+}
+.item-fila.festa .capa-ok { animation: saltar 700ms cubic-bezier(0.3, 0.8, 0.3, 1.6); }
+@keyframes saltar { 0% { transform: scale(0); } 55% { transform: scale(1.35); } 100% { transform: scale(1); } }
+.item-fila.festa { animation: brilhoOk 1.6s ease-out; }
+@keyframes brilhoOk {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); border-color: #22c55e; }
+  40% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); border-color: #22c55e; }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+.item-fila.festa .item-pronto { animation: subir 400ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.item-pronto-icone { display: inline-grid; }
+.item-fila.festa .item-pronto-icone { animation: saltar 600ms 150ms cubic-bezier(0.3, 0.8, 0.3, 1.6) both; }
+.btn-icone.destaque { color: var(--marca); background: var(--marca-suave); }
+
+/* finalizando (juntando vídeo e áudio): faixa colorida deslizando */
+.estado-finalizando .barra-preenche { background: linear-gradient(90deg, var(--marca-2), var(--marca), var(--marca-2)); background-size: 200% 100%; }
+
+/* mini-fila da lateral: a barra cresce suave */
+.mini-fila .barra-preenche { transition: width 600ms ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .heroi::before, .btn-baixar::after { animation: none; }
+}

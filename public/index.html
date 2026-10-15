@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SalvaTudo</title>
+  <meta name="description" content="Baixe vídeos, músicas e fotos na qualidade original, já organizados em pastas.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f3f4f8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0d0e12" media="(prefers-color-scheme: dark)">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icones/salvatudo.svg" type="image/svg+xml">
+  <link rel="icon" href="/icones/salvatudo-192.png" sizes="192x192" type="image/png">
+  <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/animacoes.css">
+  <script>
+    // Aplica o tema antes de pintar a tela, para não piscar.
+    (function () {
+      var tema = 'sistema';
+      try { tema = localStorage.getItem('salvatudo-tema') || 'sistema'; } catch (e) {}
+      if (tema === 'claro' || tema === 'escuro') document.documentElement.setAttribute('data-tema', tema);
+    })();
+  </script>
+  <script type="importmap">
+    {
+      "imports": {
+        "preact": "/vendor/preact/preact.module.js",
+        "preact/hooks": "/vendor/preact-hooks/hooks.module.js",
+        "htm": "/vendor/htm/htm.module.js",
+        "htm/preact": "/vendor/htm-preact/index.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <div class="abertura">
+      <div class="abertura-logo"></div>
+    </div>
+  </div>
+  <noscript>O SalvaTudo precisa de JavaScript ligado.</noscript>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

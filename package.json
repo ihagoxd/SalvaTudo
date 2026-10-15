@@ -1,0 +1,108 @@
+{
+  "name": "salvatudo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SalvaTudo — baixe vídeos e músicas na qualidade original, já organizados em pastas.",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "app": "node src/server.js --app",
+    "dev": "node --watch src/server.js",
+    "tipos": "tsc -p .",
+    "test": "npm run tipos && node --test --test-concurrency=1 --test-timeout=600000 \"test/*.test.js\"",
+    "componentes": "node scripts/componentes.js",
+    "icones": "node scripts/gerar-icones.js",
+    "logos": "node scripts/gerar-logos.js",
+    "desktop": "electron .",
+    "instalador": "electron-builder --win nsis --x64"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "author": "Ihago Martins (https://www.instagram.com/ihagomartins1/)",
+  "license": "MIT",
+  "homepage": "https://github.com/ihagoxd/SalvaTudo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ihagoxd/SalvaTudo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ihagoxd/SalvaTudo/issues"
+  },
+  "keywords": [
+    "baixar-video",
+    "baixar-musica",
+    "youtube",
+    "yt-dlp",
+    "ffmpeg",
+    "mp3",
+    "mp4",
+    "electron",
+    "windows",
+    "pt-br"
+  ],
+  "dependencies": {
+    "express": "^5.1.0",
+    "fflate": "^0.8.3",
+    "htm": "^3.1.1",
+    "preact": "^10.26.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^24.0.0",
+    "electron": "^44.7.2",
+    "electron-builder": "^26.15.3",
+    "sharp": "^0.35.5",
+    "simple-icons": "^16.35.0",
+    "typescript": "^7.0.2"
+  },
+  "build": {
+    "appId": "com.ihagomartins.salvatudo",
+    "productName": "SalvaTudo",
+    "copyright": "Ihago Martins",
+    "asar": false,
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**",
+      "src/**",
+      "public/**",
+      "package.json",
+      "!**/*.map",
+      "!**/*.d.ts",
+      "!**/*.md"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "public/icones/salvatudo.ico",
+      "artifactName": "SalvaTudo-Instalador-${version}.${ext}",
+      "executableName": "SalvaTudo"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SalvaTudo",
+      "uninstallDisplayName": "SalvaTudo",
+      "installerIcon": "public/icones/salvatudo.ico",
+      "uninstallerIcon": "public/icones/salvatudo.ico",
+      "installerLanguages": [
+        "pt_BR"
+      ],
+      "language": "1046",
+      "runAfterFinish": true,
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

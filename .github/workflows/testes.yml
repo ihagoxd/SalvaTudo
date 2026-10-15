@@ -1,0 +1,29 @@
+name: Testes
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  testes:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependências
+        run: npm ci
+        env:
+          # o Electron só é preciso para gerar o instalador
+          ELECTRON_SKIP_BINARY_DOWNLOAD: '1'
+
+      - name: Baixar o yt-dlp e o FFmpeg
+        run: npm run componentes
+
+      - name: Tipos e testes de ponta a ponta
+        run: npm test
