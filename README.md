@@ -25,7 +25,8 @@ YouTube, Instagram, TikTok, Facebook, X, Pinterest, SoundCloud, Twitch e mais de
 
 ## Instalar
 
-1. Baixe o instalador (`SalvaTudo-Instalador-<versão>.exe`) na [página de versões](https://github.com/ihagoxd/SalvaTudo/releases/latest).
+1. Baixe o instalador (`SalvaTudo-Instalador-<versão>.exe`, cerca de 107 MB) na
+   [página de versões](https://github.com/ihagoxd/SalvaTudo/releases/latest), em *Assets*.
 2. Rode o instalador. Ele instala só para o seu usuário (não pede senha de
    administrador) e cria os atalhos na área de trabalho e no menu Iniciar.
 3. Na primeira vez, o SalvaTudo baixa os dois motores que fazem o trabalho
